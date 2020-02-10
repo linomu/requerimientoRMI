@@ -28,7 +28,7 @@ public class ServidorDeObjetos {
         
         ServidorAlertasImpl ObjRemoto = new ServidorAlertasImpl();
         ObjRemoto.consultarReferenciaRemotaDeNotificacion(dirIpRMIRegistry, numPuertoRMIRegistry);
-     
+    
         
         try {
             ServidorAlertasImpl objRemoto = new ServidorAlertasImpl();

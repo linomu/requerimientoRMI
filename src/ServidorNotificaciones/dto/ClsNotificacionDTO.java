@@ -18,8 +18,10 @@ public class ClsNotificacionDTO implements Serializable{
     private int numeroHabitacion, edad;
     private String nombres, apellidos, mensajeAlMedico;
     private String fecha, hora;
-    private ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta = new ArrayList<>();
-    private ArrayList<ClsIndicadoresRegistros> listaIndicadoresRegistros = new ArrayList<>();
+   //private ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta;
+    //private ArrayList<ClsIndicadoresRegistros> listaIndicadoresRegistros;
+    public ClsNotificacionDTO(){
+    }
 
     public ClsNotificacionDTO(int numeroHabitacion, int edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
         this.numeroHabitacion = numeroHabitacion;
@@ -30,7 +32,22 @@ public class ClsNotificacionDTO implements Serializable{
         this.fecha = fecha;
         this.hora = hora;
     }
+   
 
+    
+    /*public ClsNotificacionDTO(int numeroHabitacion, int edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.edad = edad;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.mensajeAlMedico = mensajeAlMedico;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.listaIndicadoresAlerta = new ArrayList<>();
+        this.listaIndicadoresRegistros = new ArrayList<>();
+    
+    }*/
+    
     public int getNumeroHabitacion() {
         return numeroHabitacion;
     }
@@ -87,6 +104,7 @@ public class ClsNotificacionDTO implements Serializable{
         this.hora = hora;
     }
 
+    /*
     public ArrayList<ClsIndicadoresAlerta> getListaIndicadoresAlerta() {
         return listaIndicadoresAlerta;
     }
@@ -101,7 +119,7 @@ public class ClsNotificacionDTO implements Serializable{
 
     public void setListaIndicadoresRegistros(ClsIndicadoresRegistros listaIndicadoresRegistros) {
         this.listaIndicadoresRegistros.add(listaIndicadoresRegistros);
-    }
+    }*/
     
     
     

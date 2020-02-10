@@ -22,7 +22,7 @@ public class ClienteCallBackImpl extends UnicastRemoteObject implements ClienteC
     @Override
     public String notificar(String mensaje) throws RemoteException {
        System.out.println("Mensaje enviado del servidor: " + mensaje);
-       return "Mensaje enviado del servidor: " + mensaje; 
+       return "Mensaje retorno: " + mensaje; 
     }
     
 }

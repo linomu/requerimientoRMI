@@ -10,6 +10,7 @@ import ClienteHabitacion.sop_rmi.ClienteCallBackInt;
 import ServidorAlertas.dto.ClsClienteDTO;
 import ServidorNotificaciones.dto.ClsIndicadoresAlerta;
 import ServidorNotificaciones.dto.ClsNotificacionDTO;
+import ServidorNotificaciones.sop_rmi.ServidorNotificacionImpl;
 import ServidorNotificaciones.sop_rmi.ServidorNotificacionInt;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -25,7 +26,8 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
 
     private Hashtable<Integer, ClienteCallBackInt> tablaPacientes;
     /*Enlace con el Servidor de Notificaciones*/
-    private ServidorNotificacionInt ORServidorNotificaciones;
+    /*El errror estaba con el static! porque tiene que ser static y no normal*/
+    private static ServidorNotificacionInt ORServidorNotificaciones;
     /*El servidor de notificaciones debe recibir la información del paciente, y la o las alertas que se han generado*/
     
     
@@ -60,32 +62,40 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
         
         //Tengo que validar si se debe o no enviar la informacion al servidor de notificaciones
         
-        ClsNotificacionDTO objMensajeNotificacion;
-        if(false){
-            SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm:ss");
+        ClsNotificacionDTO objMensajeNotificacion = new ClsNotificacionDTO(12, 12, "Lino", "Miunoz","Hola medico","fecha","14:00");
+        ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
+        //if(true){
+           /* SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+            //SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm:ss");
 
             Date date = new Date();
-            String hora = formatterTime.format(date);
+            //String hora = formatterTime.format(date);
             String fecha= formatterDate.format(date);
-
-            objMensajeNotificacion = new ClsNotificacionDTO(objPaciente.getNumHabitacion(), objPaciente.getEdad(),objPaciente.getNombres(),objPaciente.getApellidos(),"Mensaje al medico si es 1 o 2 alertas",fecha,hora);
-            //Esta parte debe ser dinamica y depende de la cantidad de indicadores que resultaron mal
+            
+            objMensajeNotificacion = new ClsNotificacionDTO(objPaciente.getNumHabitacion(), objPaciente.getEdad(),objPaciente.getNombres(),objPaciente.getApellidos(),"Mensaje al medico si es 1 o 2 alertas",fecha,fecha);
+             //Esta parte debe ser dinamica y depende de la cantidad de indicadores que resultaron mal
             ClsIndicadoresAlerta objIndicadores = new ClsIndicadoresAlerta("frecuencia cardicada","145");
-            objMensajeNotificacion.setListaIndicadoresAlerta(objIndicadores);
+           // objMensajeNotificacion.setListaIndicadoresAlerta(objIndicadores);
             //Aqui debo leer del archivo txt los registros que tiene almacenados al mismo tiempo que voy alimentnado el objMensajeNotificacion
             
-          //Enviar el mensaje
-            ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
+          //Enviar el mensaje*/
             
             
-        }
+            
+        //}
    
         return respuestaCallback;
     }
     
        public void consultarReferenciaRemotaDeNotificacion(String direccionIpRmiRegistry, int numPuertoRmiRegistry){
-        this.ORServidorNotificaciones = (ServidorNotificacionInt)UtilidadesRegistroC.obtenerObjRemoto(direccionIpRmiRegistry, numPuertoRmiRegistry, "ObjetoRemotoNotificaciones");
+           try {
+               System.out.println("consulté la referencia remota de notificacion");
+                this.ORServidorNotificaciones = (ServidorNotificacionInt)UtilidadesRegistroC.obtenerObjRemoto(direccionIpRmiRegistry, numPuertoRmiRegistry, "ObjetoRemotoNotificaciones");
+                
+           } catch (Exception e) {
+               System.out.println("Tenemos un error!");
+           }
+           
     }
     
 }
