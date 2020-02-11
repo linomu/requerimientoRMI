@@ -142,6 +142,33 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
             
         }
+        
+        //Edad 6 Semanas - 1 año
+        if (objPaciente.getEdad()>0 && objPaciente.getEdad()<=0.115068) {
+            if(objPaciente.getFrecuenciaCardiaca()<100 || objPaciente.getFrecuenciaCardiaca()>130){
+                ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
+                listaIndicadoresAlerta.add(objIndicadorFrecuencia);
+                System.out.println("Alerta de Frecuencia Cardiaca");
+            }
+            if( objPaciente.getSistolica()<84 || objPaciente.getSistolica()>106 || objPaciente.getDiastolica()<56 || objPaciente.getDiastolica()>70 ){
+                ClsIndicadoresAlerta objIndicadorPresion = new ClsIndicadoresAlerta("Presion Arterial", String.valueOf(objPaciente.getSistolica()) + "/" + String.valueOf(objPaciente.getDiastolica()));
+                listaIndicadoresAlerta.add(objIndicadorPresion);
+                System.out.println("Alerta por Presion Arterial");
+            }
+            if(objPaciente.getFrecuenciaRespiratoria()<20 && objPaciente.getFrecuenciaRespiratoria()>30){
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+                listaIndicadoresAlerta.add(objIndicadorFreResp);
+                System.out.println("Alerta por Frecuencia Respiratoria");
+            }
+            if(objPaciente.getTemperatura()<37.5 && objPaciente.getTemperatura()>37.8){
+                ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
+                listaIndicadoresAlerta.add(objIndicadorTemp);
+                System.out.println("Alerta por Temperatura");
+            }
+            
+        }
+        
+        
         return listaIndicadoresAlerta;
 
     }
