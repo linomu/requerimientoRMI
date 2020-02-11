@@ -13,17 +13,20 @@ import java.util.Date;
  *
  * @author Lino Alejandro Munoz
  */
-public class ClsNotificacionDTO implements Serializable{
+public class ClsNotificacionDTO implements Serializable {
+
     /*Esta clase debe contener todo el cuerpo de la las notificaciones, todo en un objeto*/
-    private int numeroHabitacion, edad;
+    private int numeroHabitacion;
+    private double edad;
     private String nombres, apellidos, mensajeAlMedico;
     private String fecha, hora;
-   //private ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta;
-    //private ArrayList<ClsIndicadoresRegistros> listaIndicadoresRegistros;
-    public ClsNotificacionDTO(){
+    private ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta = new ArrayList<>();
+    private ArrayList<ClsIndicadoresRegistros> listaIndicadoresRegistros = new ArrayList<>();
+
+    public ClsNotificacionDTO() {
     }
 
-    public ClsNotificacionDTO(int numeroHabitacion, int edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
+    public ClsNotificacionDTO(int numeroHabitacion, double edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
         this.numeroHabitacion = numeroHabitacion;
         this.edad = edad;
         this.nombres = nombres;
@@ -32,21 +35,6 @@ public class ClsNotificacionDTO implements Serializable{
         this.fecha = fecha;
         this.hora = hora;
     }
-   
-
-    
-    /*public ClsNotificacionDTO(int numeroHabitacion, int edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
-        this.numeroHabitacion = numeroHabitacion;
-        this.edad = edad;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.mensajeAlMedico = mensajeAlMedico;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.listaIndicadoresAlerta = new ArrayList<>();
-        this.listaIndicadoresRegistros = new ArrayList<>();
-    
-    }*/
     
     public int getNumeroHabitacion() {
         return numeroHabitacion;
@@ -56,11 +44,11 @@ public class ClsNotificacionDTO implements Serializable{
         this.numeroHabitacion = numeroHabitacion;
     }
 
-    public int getEdad() {
+    public double getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(float edad) {
         this.edad = edad;
     }
 
@@ -104,12 +92,11 @@ public class ClsNotificacionDTO implements Serializable{
         this.hora = hora;
     }
 
-    /*
     public ArrayList<ClsIndicadoresAlerta> getListaIndicadoresAlerta() {
         return listaIndicadoresAlerta;
     }
 
-    public void setListaIndicadoresAlerta(ClsIndicadoresAlerta listaIndicadoresAlerta) {
+    public void setListaIndicadoresAlertaUnoaUno(ClsIndicadoresAlerta listaIndicadoresAlerta) {
         this.listaIndicadoresAlerta.add(listaIndicadoresAlerta);
     }
 
@@ -119,10 +106,11 @@ public class ClsNotificacionDTO implements Serializable{
 
     public void setListaIndicadoresRegistros(ClsIndicadoresRegistros listaIndicadoresRegistros) {
         this.listaIndicadoresRegistros.add(listaIndicadoresRegistros);
-    }*/
+    }
+
+    public void setListaIndicadoresAlerta(ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta) {
+        this.listaIndicadoresAlerta = listaIndicadoresAlerta;
+    }
     
-    
-    
-   
     
 }

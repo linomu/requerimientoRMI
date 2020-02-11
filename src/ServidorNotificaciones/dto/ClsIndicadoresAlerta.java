@@ -5,11 +5,13 @@
  */
 package ServidorNotificaciones.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Lino Alejandro Munoz
  */
-public class ClsIndicadoresAlerta {
+public class ClsIndicadoresAlerta implements Serializable{
     private String nombreIndicador;
     private String valor;
 

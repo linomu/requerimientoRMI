@@ -21,6 +21,7 @@ public class ServidorNotificacionImpl extends UnicastRemoteObject implements Ser
     @Override
     public void notificarAlMedico(ClsNotificacionDTO objNotificacion) throws RemoteException {
         System.out.println("***Datos Servidor Notificaiones***\nNombre: "+objNotificacion.getNombres());
+        System.out.println("Cantidad de alertas: "+objNotificacion.getListaIndicadoresAlerta().size());
     }
     
 }
