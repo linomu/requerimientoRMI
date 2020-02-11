@@ -14,7 +14,7 @@ import ServidorAlertas.utilidades.UtilidadesRegistroS;
  */
 public class ServidorDeObjetos {
     public static void main(String args[]){
-        int numPuertoRMIRegistry = 8080;
+        int numPuertoRMIRegistry = 1515;
         String dirIpRMIRegistry = "localhost";
         /*System.out.println("Cual es la direccion Ip donde se encuentra el rmiregistry: ");
         dirIpRMIRegistry = UtilidadesConsola.leerCadena();

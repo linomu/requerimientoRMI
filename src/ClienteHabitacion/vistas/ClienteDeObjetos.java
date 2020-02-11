@@ -1,26 +1,32 @@
-
 package ClienteHabitacion.vistas;
 
+import ClienteHabitacion.dto.GestionIndicadores;
 import ClienteHabitacion.sop_rmi.ClienteCallBackImpl;
 import ClienteHabitacion.sop_rmi.ClienteCallBackInt;
 import ServidorAlertas.sop_rmi.ServidorAlertasInt;
 import ClienteHabitacion.utilidades.*;
 import ServidorAlertas.dto.ClsClienteDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class ClienteDeObjetos extends javax.swing.JFrame {
 
     private static ClienteCallBackInt ORClienteCallBack;
+    private ArrayList<String> mensajesTextArea = new ArrayList<>();
     private static ServidorAlertasInt ORServidorAlertas;
+
     public ClienteDeObjetos() {
         initComponents();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         registroEnElNS();
     }
 
@@ -194,51 +200,75 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //Capturar Informacion
+
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String tipoMensaje = comboTipoEdad.getSelectedItem().toString();
         float edad = Float.parseFloat(txtEdad.getText());
-        if(tipoMensaje.equals("Semanas")){
-            
-            edad = (float) (edad *(7.0/365.0));
-            System.out.println("Entre a semanas: "+edad);
-        }
         int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
+        if (tipoMensaje.equals("Semanas")) {
+            edad = (float) (edad * (7.0 / 365.0));
+            System.out.println("Entre a semanas: " + edad);
+        }
         
+
         /*Generar los valores aleatorios*/
-        
-        ClsClienteDTO objNewCliente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
-        //Generar los indicadores aleatoriamente
-        objNewCliente.GenerarIndicadores();
-        // Imprimir los indicadores en pantalla
-        DecimalFormat df = new DecimalFormat("#.00");
-        //System.out.println(df.format(this.saturacionOxigeno));
-        String mensajeTextArea = "Enviando Indicadores...\n"
-                + "Frecuencia Cardiaca: "+df.format(objNewCliente.getFrecuenciaCardiaca())+
-                "\nPresion Arterial: "+df.format(objNewCliente.getSistolica())+"/"+df.format(objNewCliente.getDiastolica())+
-                "\nFrecuencia Respiratoria: "+df.format(objNewCliente.getFrecuenciaRespiratoria())+
-                "\nTemperatura: "+df.format(objNewCliente.getTemperatura())+
-                "\nSaturacion de Oxigento: "+df.format(objNewCliente.getSaturacionOxigeno())+"\n";
-        this.txtarea_indicadores.setText(mensajeTextArea);
-        
-        
-        try {
-            ORClienteCallBack = new ClienteCallBackImpl();
-            
-            /*Registro del paciente en la lista
+        String mensajeFinal = "";
+
+        ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
+
+        Timer objTimer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                //Generar los indicadores aleatoriamente
+                GestionIndicadores objGestion = new GestionIndicadores();
+                ClsClienteDTO objNewCliente;
+                objNewCliente = objGestion.GenerarIndicadores(objPaciente);
+                // Imprimir los indicadores en pantalla
+                DecimalFormat df = new DecimalFormat("#.00");
+                //System.out.println(df.format(this.saturacionOxigeno));
+                String mensajeTextArea = "Enviando Indicadores...\n"
+                        + "Frecuencia Cardiaca: " + df.format(objNewCliente.getFrecuenciaCardiaca())
+                        + "\nPresion Arterial: " + df.format(objNewCliente.getSistolica()) + "/" + df.format(objNewCliente.getDiastolica())
+                        + "\nFrecuencia Respiratoria: " + df.format(objNewCliente.getFrecuenciaRespiratoria())
+                        + "\nTemperatura: " + df.format(objNewCliente.getTemperatura())
+                        + "\nSaturacion de Oxigento: " + df.format(objNewCliente.getSaturacionOxigeno()) + "\n"
+                        + "************\n";
+                mensajesTextArea.add(mensajeTextArea);
+
+                try {
+                    ORClienteCallBack = new ClienteCallBackImpl();
+
+                    /*Registro del paciente en la lista
               Este registro debe hacerse solo una vez? será que lo reemplazará o debo sobreescribir con base
                 en el numero de habitación, put(numeroHabitacion, nuevo objCliente..generado cada 8 segs)*/
-            ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
-            
-            /*Enviar el objeto al servidor de alertas*/
-            String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
-            System.out.println("From a variable : " +respuestaCallBack);
-        } catch (RemoteException ex) {
-            Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+                    ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
+
+                    /*Enviar el objeto al servidor de alertas*/
+                    String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
+                    System.out.println("From a variable : " + respuestaCallBack);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                mostrarIndicadoresEnPantalla();
+            }
+        });
+        objTimer.start();
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    public void mostrarIndicadoresEnPantalla() {
+        String mensajeFinal = "";
+        for (String string : mensajesTextArea) {
+
+            mensajeFinal += string;
+
+        }
+
+        this.txtarea_indicadores.setText(mensajeFinal);
+    }
     private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEdadActionPerformed
@@ -279,18 +309,17 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
     }
 
     private void registroEnElNS() {
-        
-        int numPuertoRMIRegistry = 8080;
+
+        int numPuertoRMIRegistry = 1515;
         String dirIpRMIRegistry = "localhost";
         /*System.out.println("CcomboTipoEdadual es la direccion ip donde se encuentra el rmiregistry: ");
         dirIpRMIRegistry = UtilidadesConsola.leerCadena();
         System.out.println("Cual es el numero de puerto por el cual escucha el rmiregistry: ");
         numPuertoRMIRegistry = UtilidadesConsola.leerEntero();
-        */
-        /*¿Por qué la variable ObjetoRemotoGestionPacientes no tiene una asignación igual a la variable servidor?*/
+         */
+ /*¿Por qué la variable ObjetoRemotoGestionPacientes no tiene una asignación igual a la variable servidor?*/
         ORServidorAlertas = (ServidorAlertasInt) UtilidadesRegistroC.obtenerObjRemoto(dirIpRMIRegistry, numPuertoRMIRegistry, "ObjetoRemotoGestionPacientes");
 
-       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
