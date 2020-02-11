@@ -6,13 +6,14 @@
 package ClienteHabitacion.dto;
 
 import ServidorAlertas.dto.ClsClienteDTO;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
  *
  * @author Lino Alejandro Munoz
  */
-public class GestionIndicadores {
+public class GestionIndicadores implements Serializable{
     
     public GestionIndicadores() {
         

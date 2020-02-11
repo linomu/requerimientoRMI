@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/sop_rmi/ServidorNotificacionImpl.java</file>
+            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/utilidades/UtilidadesConsola.java</file>
+            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/vistas/ServidorDeObjetos.java</file>
+            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ClienteHabitacion/dto/GestionIndicadores.java</file>
             <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ClienteHabitacion/vistas/ClienteDeObjetos.java</file>
             <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/dto/ClsIndicadoresAlerta.java</file>
-            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/sop_rmi/ServidorDeObjetos.java</file>
-            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorAlertas/dto/ClsClienteDTO.java</file>
+            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorAlertas/sop_rmi/ServidorAlertasImpl.java</file>
+            <file>file:/C:/Users/Lino%20Alejandro%20Munoz/Documents/NetBeansProjects/RequerimientoRMI/src/ServidorNotificaciones/sop_rmi/ServidorNotificacionInt.java</file>
         </group>
     </open-files>
 </project-private>

@@ -10,7 +10,6 @@ import ClienteHabitacion.sop_rmi.ClienteCallBackInt;
 import ServidorAlertas.dto.ClsClienteDTO;
 import ServidorNotificaciones.dto.ClsIndicadoresAlerta;
 import ServidorNotificaciones.dto.ClsNotificacionDTO;
-import ServidorNotificaciones.sop_rmi.ServidorNotificacionImpl;
 import ServidorNotificaciones.sop_rmi.ServidorNotificacionInt;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,6 +25,8 @@ import java.util.ArrayList;
  */
 public class ServidorAlertasImpl extends UnicastRemoteObject implements ServidorAlertasInt {
 
+    
+    
     private Hashtable<Integer, ClienteCallBackInt> tablaPacientes;
     /*Enlace con el Servidor de Notificaciones*/
  /*El errror estaba con el static! porque tiene que ser static y no normal*/
@@ -48,11 +49,19 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
     public String enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException {
 
         ClsNotificacionDTO objMensajeNotificacion;
+        String respuestaCallback = "El paciente se encuentra bien";
 
         //La variable listaConIndicadores me retorna un arreglo que tiene las alertas generadas con base en los indicadores    
         ArrayList<ClsIndicadoresAlerta> listaConIndicadores = llenarListaConIndicadores(objPaciente);
         //Tengo que validar si se debe o no enviar la informacion al servidor de notificaciones y esto debe ser con base en la cantidad de alertas
         if (listaConIndicadores.size() > 1) {
+            /*Parte del Callback*/
+            ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
+            
+            //Si hay una alerta se debe notificar al paciente
+           objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
+           respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal");
+            
 
             /*Realizar la persistencia*/
             String mensaje = "La enfermera debe revisar al paciente";
@@ -74,21 +83,8 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             //Aqui debo leer del archivo txt los registros que tiene almacenados al mismo tiempo que voy alimentnado el objMensajeNotificacion
             //Enviar el mensaje*/
             ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
+            //ORServidorNotificaciones.notificarAlMedicoConMensaje();
 
-        }
-
-        /*Parte del Callback*/
-        String respuestaCallback = "";
-        ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
-        boolean isWrong = false;
-        //Si hay una alerta se debe notificar al paciente
-        if (listaConIndicadores.size() > 1) {
-            objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
-            isWrong = true;
-
-        }
-        if (isWrong) {
-            respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal");
         }
 
         return respuestaCallback;
@@ -164,7 +160,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
 
         }
-         //Edad 1 año - 2 año
+        //Edad 1 año - 2 año
         if (objPaciente.getEdad() > 1 && objPaciente.getEdad() <= 2) {
             if (objPaciente.getFrecuenciaCardiaca() < 100 || objPaciente.getFrecuenciaCardiaca() > 120) {
                 ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
@@ -188,7 +184,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
 
         }
-          //Edad 2 año - 6 año
+        //Edad 2 año - 6 año
         if (objPaciente.getEdad() > 2 && objPaciente.getEdad() <= 6) {
             if (objPaciente.getFrecuenciaCardiaca() < 80 || objPaciente.getFrecuenciaCardiaca() > 120) {
                 ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
@@ -212,7 +208,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
 
         }
-          //Edad 6 año - 13 años
+        //Edad 6 año - 13 años
         if (objPaciente.getEdad() > 6 && objPaciente.getEdad() <= 13) {
             if (objPaciente.getFrecuenciaCardiaca() < 80 || objPaciente.getFrecuenciaCardiaca() > 100) {
                 ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
@@ -236,7 +232,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
 
         }
-          //Edad 13 año - 16 años
+        //Edad 13 año - 16 años
         if (objPaciente.getEdad() > 13 && objPaciente.getEdad() <= 16) {
             if (objPaciente.getFrecuenciaCardiaca() < 70 || objPaciente.getFrecuenciaCardiaca() > 80) {
                 ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
@@ -260,8 +256,8 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             }
 
         }
-        
-          //Edad 16 años o mas
+
+        //Edad 16 años o mas
         if (objPaciente.getEdad() > 16) {
             if (objPaciente.getFrecuenciaCardiaca() < 60 || objPaciente.getFrecuenciaCardiaca() > 80) {
                 ClsIndicadoresAlerta objIndicadorFrecuencia = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaCardiaca()));
@@ -278,7 +274,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 36.2 && objPaciente.getTemperatura()>37.2) {
+            if (objPaciente.getTemperatura() < 36.2 && objPaciente.getTemperatura() > 37.2) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");

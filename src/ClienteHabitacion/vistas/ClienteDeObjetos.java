@@ -117,46 +117,67 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(58, 58, 58)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(comboTipoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
-                        .addGap(29, 29, 29))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel7))
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(comboTipoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(58, 58, 58)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNumHabitacion)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(160, 160, 160)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 157, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addComponent(btnGuardar)
+                                .addGap(29, 29, 29))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(btnGuardar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -176,19 +197,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtNumHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 43, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(btnGuardar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -210,11 +219,6 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
             edad = (float) (edad * (7.0 / 365.0));
             System.out.println("Entre a semanas: " + edad);
         }
-        
-
-        /*Generar los valores aleatorios*/
-        String mensajeFinal = "";
-
         ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
 
         Timer objTimer = new Timer(4000, new ActionListener() {
@@ -225,32 +229,22 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                 GestionIndicadores objGestion = new GestionIndicadores();
                 ClsClienteDTO objNewCliente;
                 objNewCliente = objGestion.GenerarIndicadores(objPaciente);
-                // Imprimir los indicadores en pantalla
-                DecimalFormat df = new DecimalFormat("#.00");
-                //System.out.println(df.format(this.saturacionOxigeno));
-                String mensajeTextArea = "Enviando Indicadores...\n"
-                        + "Frecuencia Cardiaca: " + df.format(objNewCliente.getFrecuenciaCardiaca())
-                        + "\nPresion Arterial: " + df.format(objNewCliente.getSistolica()) + "/" + df.format(objNewCliente.getDiastolica())
-                        + "\nFrecuencia Respiratoria: " + df.format(objNewCliente.getFrecuenciaRespiratoria())
-                        + "\nTemperatura: " + df.format(objNewCliente.getTemperatura())
-                        + "\nSaturacion de Oxigento: " + df.format(objNewCliente.getSaturacionOxigeno()) + "\n"
-                        + "************\n";
+                // Obtener indicadores en un String para luego imprimirlos
+                String mensajeTextArea = mensajeIndicadores(objNewCliente);
+                //Agrego los indicadores a una lista, para tener un historial de indicadores emitidos
                 mensajesTextArea.add(mensajeTextArea);
-
+                //Ejecucion del OR
                 try {
                     ORClienteCallBack = new ClienteCallBackImpl();
-
-                    /*Registro del paciente en la lista
-              Este registro debe hacerse solo una vez? será que lo reemplazará o debo sobreescribir con base
-                en el numero de habitación, put(numeroHabitacion, nuevo objCliente..generado cada 8 segs)*/
                     ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
-
                     /*Enviar el objeto al servidor de alertas*/
                     String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
-                    System.out.println("From a variable : " + respuestaCallBack);
+                    fijarRespuestaCallBack(respuestaCallBack);
+                    
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //Fijar los mensajes en el area de Indicadores
                 mostrarIndicadoresEnPantalla();
             }
         });
@@ -259,6 +253,21 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    public String mensajeIndicadores(ClsClienteDTO objNewCliente){
+        DecimalFormat df = new DecimalFormat("#.00");
+        String mensaje = "Enviando Indicadores...\n"
+                        + "Frecuencia Cardiaca: " + df.format(objNewCliente.getFrecuenciaCardiaca())
+                        + "\nPresion Arterial: " + df.format(objNewCliente.getSistolica()) + "/" + df.format(objNewCliente.getDiastolica())
+                        + "\nFrecuencia Respiratoria: " + df.format(objNewCliente.getFrecuenciaRespiratoria())
+                        + "\nTemperatura: " + df.format(objNewCliente.getTemperatura())
+                        + "\nSaturacion de Oxigento: " + df.format(objNewCliente.getSaturacionOxigeno()) + "\n"
+                        + "************\n";
+        return mensaje;
+    }
+    
+    public void fijarRespuestaCallBack(String mensaje){
+        this.txtarea_notificaciones.setText(mensaje);
+    }
     public void mostrarIndicadoresEnPantalla() {
         String mensajeFinal = "";
         for (String string : mensajesTextArea) {
@@ -269,6 +278,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
 
         this.txtarea_indicadores.setText(mensajeFinal);
     }
+    
     private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEdadActionPerformed
