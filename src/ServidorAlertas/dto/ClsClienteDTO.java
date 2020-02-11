@@ -58,11 +58,56 @@ public class ClsClienteDTO implements Serializable {
         if(this.edad > 0.115068 && this.edad <=1){
             System.out.println("Generando indicadores para : 7 Semanas - 1 año");
             this.frecuenciaCardiaca = (float) (Math.random() * (130 + frecuenciaCardiacaExcedente) + (100 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
-            this.sistolica = (float) (Math.random() * (100 + sistolicaExcedente) + (70 - sistolicaExcedente));
-            this.diastolica = (float) (Math.random() * (68 + diastolicaExcedente) + (50 - diastolicaExcedente));
+            this.sistolica = (float) (Math.random() * (106 + sistolicaExcedente) + (84 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (70 + diastolicaExcedente) + (56- diastolicaExcedente));
             this.presionArterial = this.sistolica / this.diastolica;
-            this.frecuenciaRespiratoria = (float) (Math.random() * (45 + frecueciaRespiratoriaExcedente) + (40 - frecueciaRespiratoriaExcedente));
-            this.temperatura = (float) (Math.random() * (38 + temperaturaExcedente) + (38 - temperaturaExcedente));
+            this.frecuenciaRespiratoria = (float) (Math.random() * (30 + frecueciaRespiratoriaExcedente) + (20 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37.8 + temperaturaExcedente) + (37.5 - temperaturaExcedente));
+        }
+        if(this.edad > 1 && this.edad <=2){
+            System.out.println("Generando indicadores para :1 año - 2 años");
+            this.frecuenciaCardiaca = (float) (Math.random() * (120 + frecuenciaCardiacaExcedente) + (100 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (106 + sistolicaExcedente) + (98 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (70 + diastolicaExcedente) + (58- diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (30 + frecueciaRespiratoriaExcedente) + (20 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37.8 + temperaturaExcedente) + (37.5 - temperaturaExcedente));
+        }
+        if(this.edad > 2 && this.edad <=6){
+            System.out.println("Generando indicadores para : 2 años - 6 años");
+            this.frecuenciaCardiaca = (float) (Math.random() * (120 + frecuenciaCardiacaExcedente) + (80 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (112 + sistolicaExcedente) + (99 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (70 + diastolicaExcedente) + (64- diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (30 + frecueciaRespiratoriaExcedente) + (20 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37.8 + temperaturaExcedente) + (37.5 - temperaturaExcedente));
+        }
+        if(this.edad > 6 && this.edad <=13){
+            System.out.println("Generando indicadores para : 6 años - 13 años");
+            this.frecuenciaCardiaca = (float) (Math.random() * (100 + frecuenciaCardiacaExcedente) + (80 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (124 + sistolicaExcedente) + (104 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (86 + diastolicaExcedente) + (64- diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (20 + frecueciaRespiratoriaExcedente) + (12 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37.5 + temperaturaExcedente) + (37 - temperaturaExcedente));
+        }
+         if(this.edad > 13 && this.edad <=16){
+            System.out.println("Generando indicadores para : 13 años - 16 años");
+            this.frecuenciaCardiaca = (float) (Math.random() * (80 + frecuenciaCardiacaExcedente) + (70 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (132 + sistolicaExcedente) + (118 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (82 + diastolicaExcedente) + (70- diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (20 + frecueciaRespiratoriaExcedente) + (12 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37 + temperaturaExcedente) + (37 - temperaturaExcedente));
+        }
+         if(this.edad > 16 ){
+            System.out.println("Generando indicadores para :16 años y más");
+            this.frecuenciaCardiaca = (float) (Math.random() * (80 + frecuenciaCardiacaExcedente) + (60 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (140 + sistolicaExcedente) + (110 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (90 + diastolicaExcedente) + (70- diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (20 + frecueciaRespiratoriaExcedente) + (12 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (37.2 + temperaturaExcedente) + (36.2 - temperaturaExcedente));
         }
     }
 
