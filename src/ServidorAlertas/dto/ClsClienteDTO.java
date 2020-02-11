@@ -6,6 +6,7 @@
 package ServidorAlertas.dto;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -18,11 +19,11 @@ public class ClsClienteDTO implements Serializable {
     private int numHabitacion;
     private String nombres;
     private String apellidos;
-    private double edad;
-    private double frecuenciaCardiaca, presionArterial, frecuenciaRespiratoria, temperatura, saturacionOxigeno, sistolica, diastolica;
+    private float edad;
+    private float frecuenciaCardiaca, presionArterial, frecuenciaRespiratoria, temperatura, saturacionOxigeno, sistolica, diastolica;
     
 
-    public ClsClienteDTO(int numHabitacion, String nombres, String apellidos, double edad) {
+    public ClsClienteDTO(int numHabitacion, String nombres, String apellidos, float edad) {
         this.numHabitacion = numHabitacion;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -38,25 +39,36 @@ public class ClsClienteDTO implements Serializable {
         int frecueciaRespiratoriaExcedente = 5;
         float temperaturaExcedente = (float) 0.5;
         int saturacionExcedente = 5;
+        
+        
 
         this.saturacionOxigeno = (int) (Math.random() * (100) + (95 - saturacionExcedente));
-
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.println(df.format(this.saturacionOxigeno));
         /*Nacimiento - 6 Semanas*/
         if (this.edad > 0 && this.edad <= 0.115068) {
             System.out.println("Generando indicadores para : Nacimiento - 6 Semanas");
-            this.frecuenciaCardiaca = (double) (Math.random() * (140 + frecuenciaCardiacaExcedente) + (120 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
-            this.sistolica = (double) (Math.random() * (100 + sistolicaExcedente) + (70 - sistolicaExcedente));
-            this.diastolica = (double) (Math.random() * (68 + diastolicaExcedente) + (50 - diastolicaExcedente));
+            this.frecuenciaCardiaca = (float) (Math.random() * (140 + frecuenciaCardiacaExcedente) + (120 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (100 + sistolicaExcedente) + (70 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (68 + diastolicaExcedente) + (50 - diastolicaExcedente));
             this.presionArterial = this.sistolica / this.diastolica;
-            this.frecuenciaRespiratoria = (double) (Math.random() * (45 + frecueciaRespiratoriaExcedente) + (40 - frecueciaRespiratoriaExcedente));
-            this.temperatura = (double) (Math.random() * (38 + temperaturaExcedente) + (38 - temperaturaExcedente));
-
+            this.frecuenciaRespiratoria = (float) (Math.random() * (45 + frecueciaRespiratoriaExcedente) + (40 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (38 + temperaturaExcedente) + (38 - temperaturaExcedente));
+        }
+        if(this.edad > 0.115068 && this.edad <=1){
+            System.out.println("Generando indicadores para : 7 Semanas - 1 año");
+            this.frecuenciaCardiaca = (float) (Math.random() * (130 + frecuenciaCardiacaExcedente) + (100 - frecuenciaCardiacaExcedente));//Aleatorio entre 160 y 100
+            this.sistolica = (float) (Math.random() * (100 + sistolicaExcedente) + (70 - sistolicaExcedente));
+            this.diastolica = (float) (Math.random() * (68 + diastolicaExcedente) + (50 - diastolicaExcedente));
+            this.presionArterial = this.sistolica / this.diastolica;
+            this.frecuenciaRespiratoria = (float) (Math.random() * (45 + frecueciaRespiratoriaExcedente) + (40 - frecueciaRespiratoriaExcedente));
+            this.temperatura = (float) (Math.random() * (38 + temperaturaExcedente) + (38 - temperaturaExcedente));
         }
     }
 
    
 
-    public double getSistolica() {
+    public float getSistolica() {
         return sistolica;
     }
 
@@ -64,7 +76,7 @@ public class ClsClienteDTO implements Serializable {
         this.sistolica = sistolica;
     }
 
-    public double getDiastolica() {
+    public float getDiastolica() {
         return diastolica;
     }
 
@@ -96,7 +108,7 @@ public class ClsClienteDTO implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public double getEdad() {
+    public float getEdad() {
         return edad;
     }
 
@@ -104,7 +116,7 @@ public class ClsClienteDTO implements Serializable {
         this.edad = edad;
     }
 
-    public double getFrecuenciaCardiaca() {
+    public float getFrecuenciaCardiaca() {
         return frecuenciaCardiaca;
     }
 
@@ -112,7 +124,7 @@ public class ClsClienteDTO implements Serializable {
         this.frecuenciaCardiaca = frecuenciaCardiaca;
     }
 
-    public double getPresionArterial() {
+    public float getPresionArterial() {
         return presionArterial;
     }
 
@@ -120,7 +132,7 @@ public class ClsClienteDTO implements Serializable {
         this.presionArterial = presionArterial;
     }
 
-    public double getFrecuenciaRespiratoria() {
+    public float getFrecuenciaRespiratoria() {
         return frecuenciaRespiratoria;
     }
 
@@ -128,7 +140,7 @@ public class ClsClienteDTO implements Serializable {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
     }
 
-    public double getTemperatura() {
+    public float getTemperatura() {
         return temperatura;
     }
 
@@ -136,7 +148,7 @@ public class ClsClienteDTO implements Serializable {
         this.temperatura = temperatura;
     }
 
-    public double getSaturacionOxigeno() {
+    public float getSaturacionOxigeno() {
         return saturacionOxigeno;
     }
 

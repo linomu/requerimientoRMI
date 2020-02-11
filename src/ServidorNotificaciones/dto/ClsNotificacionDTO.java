@@ -17,7 +17,7 @@ public class ClsNotificacionDTO implements Serializable {
 
     /*Esta clase debe contener todo el cuerpo de la las notificaciones, todo en un objeto*/
     private int numeroHabitacion;
-    private double edad;
+    private float edad;
     private String nombres, apellidos, mensajeAlMedico;
     private String fecha, hora;
     private ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta = new ArrayList<>();
@@ -26,7 +26,7 @@ public class ClsNotificacionDTO implements Serializable {
     public ClsNotificacionDTO() {
     }
 
-    public ClsNotificacionDTO(int numeroHabitacion, double edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
+    public ClsNotificacionDTO(int numeroHabitacion, float edad, String nombres, String apellidos, String mensajeAlMedico, String fecha, String hora) {
         this.numeroHabitacion = numeroHabitacion;
         this.edad = edad;
         this.nombres = nombres;

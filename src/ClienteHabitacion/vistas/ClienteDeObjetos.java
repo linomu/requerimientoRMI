@@ -7,6 +7,7 @@ import ServidorAlertas.sop_rmi.ServidorAlertasInt;
 import ClienteHabitacion.utilidades.*;
 import ServidorAlertas.dto.ClsClienteDTO;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -196,10 +197,10 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String tipoMensaje = comboTipoEdad.getSelectedItem().toString();
-        double edad = Double.parseDouble(txtEdad.getText());
+        float edad = Float.parseFloat(txtEdad.getText());
         if(tipoMensaje.equals("Semanas")){
             
-            edad = edad *(7.0/365.0);
+            edad = (float) (edad *(7.0/365.0));
             System.out.println("Entre a semanas: "+edad);
         }
         int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
@@ -210,7 +211,14 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         //Generar los indicadores aleatoriamente
         objNewCliente.GenerarIndicadores();
         // Imprimir los indicadores en pantalla
-        String mensajeTextArea = "Enviando Indicadores...\n"+"Frecuencia Cardiaca: "+objNewCliente.getFrecuenciaCardiaca()+"\n"+"Presion Arterial: "+objNewCliente.getSistolica()+"/"+objNewCliente.getDiastolica()+"\n"+"Frecuencia Respiratoria: "+objNewCliente.getFrecuenciaRespiratoria()+"\n"+"Temperatura: "+objNewCliente.getTemperatura()+"\n"+"Saturacion de Oxigento: "+objNewCliente.getSaturacionOxigeno()+"\n";
+        DecimalFormat df = new DecimalFormat("#.00");
+        //System.out.println(df.format(this.saturacionOxigeno));
+        String mensajeTextArea = "Enviando Indicadores...\n"
+                + "Frecuencia Cardiaca: "+df.format(objNewCliente.getFrecuenciaCardiaca())+
+                "\nPresion Arterial: "+df.format(objNewCliente.getSistolica())+"/"+df.format(objNewCliente.getDiastolica())+
+                "\nFrecuencia Respiratoria: "+df.format(objNewCliente.getFrecuenciaRespiratoria())+
+                "\nTemperatura: "+df.format(objNewCliente.getTemperatura())+
+                "\nSaturacion de Oxigento: "+df.format(objNewCliente.getSaturacionOxigeno())+"\n";
         this.txtarea_indicadores.setText(mensajeTextArea);
         
         

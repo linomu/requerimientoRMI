@@ -47,24 +47,10 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
 
     @Override
     public String enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException {
-        String respuestaCallback = "";
-        ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
-        boolean isWrong = false;
-        if (objPaciente.getEdad() >= 13 && objPaciente.getEdad() < 16) {
-            if (objPaciente.getFrecuenciaCardiaca() <= 70 || objPaciente.getFrecuenciaCardiaca() >= 80) {
-                objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
-                isWrong = true;
-
-            }
-        }
-        if (isWrong) {
-            respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " presenta una frecuencia cardiaca de " + objPaciente.getFrecuenciaCardiaca() + " la cual se encuentra fuera del rango normal");
-        }
+        
 
         ClsNotificacionDTO objMensajeNotificacion;
-        
-        
-      
+    
         //La variable listaConIndicadores me retorna un arreglo que tiene las alertas generadas con base en los indicadores    
         ArrayList<ClsIndicadoresAlerta> listaConIndicadores = llenarListaConIndicadores(objPaciente);
         //Tengo que validar si se debe o no enviar la informacion al servidor de notificaciones y esto debe ser con base en la cantidad de alertas
@@ -93,7 +79,21 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
 
         }
+        
+        /*Parte del Callback*/
+        String respuestaCallback = "";
+        ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
+        boolean isWrong = false;
+        //Si hay una alerta se debe notificar al paciente
+        if (listaConIndicadores.size()>1) {
+            objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
+            isWrong = true;
 
+        }
+        if (isWrong) {
+            respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal");
+        }
+        
         return respuestaCallback;
     }
 
