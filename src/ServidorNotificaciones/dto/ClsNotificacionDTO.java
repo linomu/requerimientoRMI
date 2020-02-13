@@ -104,13 +104,19 @@ public class ClsNotificacionDTO implements Serializable {
         return listaIndicadoresRegistros;
     }
 
-    public void setListaIndicadoresRegistros(ClsIndicadoresRegistros listaIndicadoresRegistros) {
+    public void setListaIndicadoresRegistrosUnoAUno(ClsIndicadoresRegistros listaIndicadoresRegistros) {
         this.listaIndicadoresRegistros.add(listaIndicadoresRegistros);
     }
 
     public void setListaIndicadoresAlerta(ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta) {
         this.listaIndicadoresAlerta = listaIndicadoresAlerta;
     }
+
+    public void setListaIndicadoresRegistros(ArrayList<ClsIndicadoresRegistros> listaIndicadoresRegistros) {
+        this.listaIndicadoresRegistros = listaIndicadoresRegistros;
+    }
+    
+    
     
     
 }

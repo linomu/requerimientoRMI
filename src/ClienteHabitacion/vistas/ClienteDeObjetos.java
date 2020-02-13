@@ -130,9 +130,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(comboTipoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(comboTipoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(58, 58, 58)
@@ -177,7 +175,11 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtNumHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,10 +195,6 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtNumHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -220,8 +218,11 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
             System.out.println("Entre a semanas: " + edad);
         }
         ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
+        
+        
+        inhabilitarComponentes();
 
-        Timer objTimer = new Timer(4000, new ActionListener() {
+        Timer objTimer = new Timer(8000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -351,4 +352,13 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
     private javax.swing.JTextArea txtarea_indicadores;
     private javax.swing.JTextArea txtarea_notificaciones;
     // End of variables declaration//GEN-END:variables
+
+    private void inhabilitarComponentes() {
+        this.txtNumHabitacion.setEnabled(false);
+        this.txtNombre.setEnabled(false);
+        this.txtApellido.setEnabled(false);
+        this.comboTipoEdad.setEnabled(false);
+        this.txtEdad.setEnabled(false);
+        this.btnGuardar.setEnabled(false);
+    }
 }

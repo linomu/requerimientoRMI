@@ -7,8 +7,10 @@ package ServidorAlertas.sop_rmi;
 
 import ClienteHabitacion.sop_rmi.ClienteCallBackImpl;
 import ClienteHabitacion.sop_rmi.ClienteCallBackInt;
+import ServidorAlertas.dao.ClsPersistencia;
 import ServidorAlertas.dto.ClsClienteDTO;
 import ServidorNotificaciones.dto.ClsIndicadoresAlerta;
+import ServidorNotificaciones.dto.ClsIndicadoresRegistros;
 import ServidorNotificaciones.dto.ClsNotificacionDTO;
 import ServidorNotificaciones.sop_rmi.ServidorNotificacionInt;
 import java.rmi.RemoteException;
@@ -55,15 +57,21 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
         ArrayList<ClsIndicadoresAlerta> listaConIndicadores = llenarListaConIndicadores(objPaciente);
         //Tengo que validar si se debe o no enviar la informacion al servidor de notificaciones y esto debe ser con base en la cantidad de alertas
         if (listaConIndicadores.size() > 1) {
+            
             /*Parte del Callback*/
             ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
-            
             //Si hay una alerta se debe notificar al paciente
            objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
-           respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal");
-            
+           String nombreAlertasGeneradas="";
+            for (ClsIndicadoresAlerta listaConIndicadore : listaConIndicadores) {
+                nombreAlertasGeneradas+=listaConIndicadore.getNombreIndicador()+"\n";
+            }
+           respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal.\n"+nombreAlertasGeneradas);
 
             /*Realizar la persistencia*/
+            ClsPersistencia objPersistencia = new ClsPersistencia();
+           
+            
             String mensaje = "La enfermera debe revisar al paciente";
             if (listaConIndicadores.size() >= 3) {
                 mensaje = "El medico y la enfermera deben revisar al paciente";
@@ -75,13 +83,21 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
             Date date = new Date();
             String hora = formatterTime.format(date);
             String fecha = formatterDate.format(date);
+            
+            /*Persistencia*/
+            ClsIndicadoresRegistros objRegistro = new ClsIndicadoresRegistros(String.valueOf(objPaciente.getNumHabitacion()), fecha, hora, String.valueOf(listaConIndicadores.size()));
+            objPersistencia.GuardarRegistro(objRegistro);
+            
 
             objMensajeNotificacion = new ClsNotificacionDTO(objPaciente.getNumHabitacion(), objPaciente.getEdad(), objPaciente.getNombres(), objPaciente.getApellidos(), mensaje, fecha, hora);
             //Le paso al mensajeNotificacion las alertas generadas
             objMensajeNotificacion.setListaIndicadoresAlerta(listaConIndicadores);
 
             //Aqui debo leer del archivo txt los registros que tiene almacenados al mismo tiempo que voy alimentnado el objMensajeNotificacion
+            
+            objMensajeNotificacion.setListaIndicadoresRegistros(objPersistencia.LeerRegistros(String.valueOf(objPaciente.getNumHabitacion())));
             //Enviar el mensaje*/
+            
             ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
             //ORServidorNotificaciones.notificarAlMedicoConMensaje();
 

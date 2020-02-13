@@ -5,10 +5,82 @@
  */
 package ServidorAlertas.dao;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import ServidorNotificaciones.dto.ClsIndicadoresRegistros;
+import java.util.ArrayList;
+
 /**
  *
  * @author Lino Alejandro Munoz
  */
 public class ClsPersistencia {
-    
+
+    public void GuardarRegistro(ClsIndicadoresRegistros registro) {
+        try {
+            File f = new File("ZColeccionRegistros.txt");
+            FileWriter fw;
+            BufferedWriter bw;
+            if (f.exists() && f.length() != 0) {
+                System.out.println("LLENE POR IF");
+                fw = new FileWriter(f, true);//True para que no sobreescriba el objeto anterior, con el true va añadiendo en vez de sobreescribir
+                bw = new BufferedWriter(fw);
+                bw.newLine();
+                bw.write(String.valueOf(registro.getNumHabitacion()) + "%" + String.valueOf(registro.getFecha()) + "%" + registro.getHora() + "%" + registro.getPuntuacion());
+
+            } else {
+                System.out.println("LLENE POR ELSE");
+                fw = new FileWriter(f);
+                bw = new BufferedWriter(fw);
+                bw.write(String.valueOf(registro.getNumHabitacion()) + "%" + String.valueOf(registro.getFecha()) + "%" + registro.getHora() + "%" + registro.getPuntuacion());
+
+            }
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<ClsIndicadoresRegistros> LeerRegistros(String numHabitacionArg) {
+        ClsIndicadoresRegistros auxRegistro;
+        ArrayList<ClsIndicadoresRegistros> listaRegistros = new ArrayList<>();
+
+        try {
+            File f = new File("ZColeccionRegistros.txt");
+
+            if (f.exists()) {
+                FileReader fr = new FileReader(f);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    //Continue mientras tenga algo en la linea
+                    String[] registro = linea.split("%");
+
+                    String numHabitacion = registro[0];
+                    String fecha = registro[1];
+                    String hora = registro[2];
+                    String puntuacion = registro[3];
+                    //Recupero solo las alertas del paciente en cuestion
+                    if (numHabitacionArg.equals(numHabitacion)) {
+
+                        auxRegistro = new ClsIndicadoresRegistros(numHabitacion, fecha, hora, puntuacion);
+                        listaRegistros.add(auxRegistro);
+                    }
+
+                }
+            } else {
+                System.out.println("No hay carros gurdados");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listaRegistros;
+    }
+
 }

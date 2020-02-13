@@ -5,18 +5,33 @@
  */
 package ServidorNotificaciones.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Lino Alejandro Munoz
  */
-public class ClsIndicadoresRegistros {
-    private String fecha, hora, puntuacion;
+public class ClsIndicadoresRegistros implements Serializable{
+    private String numHabitacion, fecha, hora, puntuacion;
 
-    public ClsIndicadoresRegistros(String fecha, String hora, String puntuacion) {
+    public ClsIndicadoresRegistros(){
+    }
+
+    public ClsIndicadoresRegistros(String numHabitacion, String fecha, String hora, String puntuacion) {
+        this.numHabitacion = numHabitacion;
         this.fecha = fecha;
         this.hora = hora;
         this.puntuacion = puntuacion;
     }
+
+    public String getNumHabitacion() {
+        return numHabitacion;
+    }
+
+    public void setNumHabitacion(String numHabitacion) {
+        this.numHabitacion = numHabitacion;
+    }
+    
 
     public String getFecha() {
         return fecha;
