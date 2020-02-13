@@ -122,7 +122,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
     private ArrayList<ClsIndicadoresAlerta> llenarListaConIndicadores(ClsClienteDTO objPaciente) {
         ArrayList<ClsIndicadoresAlerta> listaIndicadoresAlerta = new ArrayList<>();
 
-        if (objPaciente.getSaturacionOxigeno() < 95) {
+        if (objPaciente.getSaturacionOxigeno() < 95 || objPaciente.getSaturacionOxigeno() > 100) {
             ClsIndicadoresAlerta objIndicadorSaturacion = new ClsIndicadoresAlerta("Saturacion de Oxigeno", String.valueOf(objPaciente.getSaturacionOxigeno()));
             listaIndicadoresAlerta.add(objIndicadorSaturacion);
             System.out.println("Alerta de Saturaciòn");
@@ -139,8 +139,8 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 40 && objPaciente.getFrecuenciaRespiratoria() > 45) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 40 || objPaciente.getFrecuenciaRespiratoria() > 45) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
@@ -164,12 +164,12 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 20 && objPaciente.getFrecuenciaRespiratoria() > 30) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 20 || objPaciente.getFrecuenciaRespiratoria() > 30) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 37.5 && objPaciente.getTemperatura() > 37.8) {
+            if (objPaciente.getTemperatura() < 37.5 || objPaciente.getTemperatura() > 37.8) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");
@@ -188,12 +188,12 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 20 && objPaciente.getFrecuenciaRespiratoria() > 30) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 20 || objPaciente.getFrecuenciaRespiratoria() > 30) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 37.5 && objPaciente.getTemperatura() > 37.8) {
+            if (objPaciente.getTemperatura() < 37.5 || objPaciente.getTemperatura() > 37.8) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");
@@ -212,12 +212,12 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 20 && objPaciente.getFrecuenciaRespiratoria() > 30) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 20 || objPaciente.getFrecuenciaRespiratoria() > 30) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 37.5 && objPaciente.getTemperatura() > 37.8) {
+            if (objPaciente.getTemperatura() < 37.5 || objPaciente.getTemperatura() > 37.8) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");
@@ -236,12 +236,12 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 12 && objPaciente.getFrecuenciaRespiratoria() > 20) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 12 || objPaciente.getFrecuenciaRespiratoria() > 20) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 37 && objPaciente.getTemperatura() > 37.5) {
+            if (objPaciente.getTemperatura() < 37 || objPaciente.getTemperatura() > 37.5) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");
@@ -260,8 +260,8 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 12 && objPaciente.getFrecuenciaRespiratoria() > 20) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 12 || objPaciente.getFrecuenciaRespiratoria() > 20) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
@@ -285,12 +285,12 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 listaIndicadoresAlerta.add(objIndicadorPresion);
                 System.out.println("Alerta por Presion Arterial");
             }
-            if (objPaciente.getFrecuenciaRespiratoria() < 12 && objPaciente.getFrecuenciaRespiratoria() > 20) {
-                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Cardiaca", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
+            if (objPaciente.getFrecuenciaRespiratoria() < 12 || objPaciente.getFrecuenciaRespiratoria() > 20) {
+                ClsIndicadoresAlerta objIndicadorFreResp = new ClsIndicadoresAlerta("Frecuencia Respiratoria", String.valueOf(objPaciente.getFrecuenciaRespiratoria()));
                 listaIndicadoresAlerta.add(objIndicadorFreResp);
                 System.out.println("Alerta por Frecuencia Respiratoria");
             }
-            if (objPaciente.getTemperatura() < 36.2 && objPaciente.getTemperatura() > 37.2) {
+            if (objPaciente.getTemperatura() < 36.2 || objPaciente.getTemperatura() > 37.2) {
                 ClsIndicadoresAlerta objIndicadorTemp = new ClsIndicadoresAlerta("Temperatura", String.valueOf(objPaciente.getTemperatura()));
                 listaIndicadoresAlerta.add(objIndicadorTemp);
                 System.out.println("Alerta por Temperatura");
