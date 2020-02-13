@@ -27,8 +27,6 @@ import java.util.ArrayList;
  */
 public class ServidorAlertasImpl extends UnicastRemoteObject implements ServidorAlertasInt {
 
-    
-    
     private Hashtable<Integer, ClienteCallBackInt> tablaPacientes;
     /*Enlace con el Servidor de Notificaciones*/
  /*El errror estaba con el static! porque tiene que ser static y no normal*/
@@ -42,14 +40,14 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
 
     @Override
     public boolean registrarPaciente(ClienteCallBackInt objPaciente, ClsClienteDTO objPacienteDto) throws RemoteException {
-        System.out.println("Invocando al método registrar usuario desde el servidor");
+        System.out.println("Invocando al método registrar usuario desde el servidor...");
         tablaPacientes.put(objPacienteDto.getNumHabitacion(), objPaciente);
         return true;
     }
 
     @Override
     public String enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException {
-
+        System.out.println("Invocando al método enviarIndicadores desde el servidor...");
         ClsNotificacionDTO objMensajeNotificacion;
         String respuestaCallback = "El paciente se encuentra bien";
 
@@ -57,47 +55,38 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
         ArrayList<ClsIndicadoresAlerta> listaConIndicadores = llenarListaConIndicadores(objPaciente);
         //Tengo que validar si se debe o no enviar la informacion al servidor de notificaciones y esto debe ser con base en la cantidad de alertas
         if (listaConIndicadores.size() > 1) {
-            
+
             /*Parte del Callback*/
             ClienteCallBackInt objPacienteCallBack = new ClienteCallBackImpl();
-            //Si hay una alerta se debe notificar al paciente
-           objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
-           String nombreAlertasGeneradas="";
+            //Si hay una alerta se debe notificar al paciente, obtengo la refencia de ese OR
+            objPacienteCallBack = tablaPacientes.get(objPaciente.getNumHabitacion());
+            String nombreAlertasGeneradas = "";
+            //De la listaConIndicadores, solo voy a obtener el nombre de los indicadores, esto con el fin de enviárselo al paciente
             for (ClsIndicadoresAlerta listaConIndicadore : listaConIndicadores) {
-                nombreAlertasGeneradas+=listaConIndicadore.getNombreIndicador()+"\n";
+                nombreAlertasGeneradas += listaConIndicadore.getNombreIndicador() + "\n";
             }
-           respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal.\n"+nombreAlertasGeneradas);
+            //Esta es la respuesta que se enviará al Paciente, mediate el retorno del método.
+            respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal.\n" + nombreAlertasGeneradas);
 
-            /*Realizar la persistencia*/
-            ClsPersistencia objPersistencia = new ClsPersistencia();
-           
-            
             String mensaje = "La enfermera debe revisar al paciente";
             if (listaConIndicadores.size() >= 3) {
                 mensaje = "El medico y la enfermera deben revisar al paciente";
             }
+            String hora = obtenerHora(); String fecha = obtenerFecha();
 
-            SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm:ss");
-
-            Date date = new Date();
-            String hora = formatterTime.format(date);
-            String fecha = formatterDate.format(date);
-            
-            /*Persistencia*/
-            ClsIndicadoresRegistros objRegistro = new ClsIndicadoresRegistros(String.valueOf(objPaciente.getNumHabitacion()), fecha, hora, String.valueOf(listaConIndicadores.size()));
+            /*Realizar la persistencia*/
+            ClsPersistencia objPersistencia = new ClsPersistencia();
+            /*Creo un objeto de la clase ClsIndicadoresRegistros, con el fin de estructurar la alerta y así guardarlo en el txt*/
+            ClsIndicadoresRegistros objRegistro = new ClsIndicadoresRegistros(String.valueOf(objPaciente.getNumHabitacion()),objPaciente.getNombres(),objPaciente.getApellidos(), fecha, hora, String.valueOf(listaConIndicadores.size()));
             objPersistencia.GuardarRegistro(objRegistro);
-            
 
             objMensajeNotificacion = new ClsNotificacionDTO(objPaciente.getNumHabitacion(), objPaciente.getEdad(), objPaciente.getNombres(), objPaciente.getApellidos(), mensaje, fecha, hora);
             //Le paso al mensajeNotificacion las alertas generadas
             objMensajeNotificacion.setListaIndicadoresAlerta(listaConIndicadores);
-
-            //Aqui debo leer del archivo txt los registros que tiene almacenados al mismo tiempo que voy alimentnado el objMensajeNotificacion
-            
+            /*Aqui debo leer del archivo txt los registros que tiene almacenados con base en su edad, 
+            al mismo tiempo que le paso esa lista al objMensajeNotificacion*/
             objMensajeNotificacion.setListaIndicadoresRegistros(objPersistencia.LeerRegistros(String.valueOf(objPaciente.getNumHabitacion())));
             //Enviar el mensaje*/
-            
             ORServidorNotificaciones.notificarAlMedico(objMensajeNotificacion);
             //ORServidorNotificaciones.notificarAlMedicoConMensaje();
 
@@ -302,4 +291,15 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
 
     }
 
+    private String obtenerHora(){
+        SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return formatterTime.format(date);
+    }
+    
+    private String obtenerFecha(){
+        SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return formatterDate.format(date);
+    }
 }

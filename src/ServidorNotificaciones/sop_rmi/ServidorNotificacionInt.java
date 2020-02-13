@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
  * @author Lino Alejandro Munoz
  */
 public interface ServidorNotificacionInt extends Remote{
+    
     public void notificarAlMedico(ClsNotificacionDTO objNotificacion) throws RemoteException;
     
 }

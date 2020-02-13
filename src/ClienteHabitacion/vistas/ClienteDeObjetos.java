@@ -23,18 +23,15 @@ import javax.swing.Timer;
 public class ClienteDeObjetos extends javax.swing.JFrame {
 
     private static ClienteCallBackInt ORClienteCallBack;
-    private ArrayList<String> mensajesTextArea = new ArrayList<>();
     private static ServidorAlertasInt ORServidorAlertas;
+    private ArrayList<String> mensajesTextArea = new ArrayList<>();
 
     public ClienteDeObjetos() {
         initComponents();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         registroEnElNS();
-        Image img = new ImageIcon(this.getClass().getResource("img/logo.png")).getImage();
-        this.imagenEPS.setIcon(new ImageIcon(img));
-        Image img2 = new ImageIcon(this.getClass().getResource("img/corazon.png")).getImage();
-        this.logocorazon.setIcon(new ImageIcon(img2));
+        fijarImagenesEnElFormulario();
+
     }
 
     /**
@@ -236,14 +233,16 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         float edad = Float.parseFloat(txtEdad.getText());
         int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
         if (tipoMensaje.equals("Semanas")) {
+            //Esta conversion nos permite pasar el numero de semanas a años
             edad = (float) (edad * (7.0 / 365.0));
             System.out.println("Entre a semanas: " + edad);
+                
         }
+        //Creamos un objeto paciente
         ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
-        
-        
+        //Deshabilitamos los demás componentes de la GUI para envitar el ingreso de datos
         inhabilitarComponentes();
-
+        //Objeto de la clase Timer, el cual me permite realizar una actividad cada N Milisegundos
         Timer objTimer = new Timer(8000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -251,24 +250,27 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                 //Generar los indicadores aleatoriamente
                 GestionIndicadores objGestion = new GestionIndicadores();
                 ClsClienteDTO objNewCliente;
+                //El objNewCliente es el resultado de la informacion personas + los indicadores
                 objNewCliente = objGestion.GenerarIndicadores(objPaciente);
                 // Obtener indicadores en un String para luego imprimirlos
                 String mensajeTextArea = mensajeIndicadores(objNewCliente);
                 //Agrego los indicadores a una lista, para tener un historial de indicadores emitidos
                 mensajesTextArea.add(mensajeTextArea);
-                //Ejecucion del OR
+                //Fijar los mensajes en el area de Indicadores
+                mostrarIndicadoresEnPantalla();
+                //Ejecucion de los Objetos Remotos
                 try {
                     ORClienteCallBack = new ClienteCallBackImpl();
+                    //Registramos la referencia del ClienteCallBack junto con el cliente->getEdad()
                     ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
                     /*Enviar el objeto al servidor de alertas*/
                     String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
                     fijarRespuestaCallBack(respuestaCallBack);
-                    
+
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //Fijar los mensajes en el area de Indicadores
-                mostrarIndicadoresEnPantalla();
+                
             }
         });
         objTimer.start();
@@ -276,32 +278,30 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    public String mensajeIndicadores(ClsClienteDTO objNewCliente){
+    public String mensajeIndicadores(ClsClienteDTO objNewCliente) {
         DecimalFormat df = new DecimalFormat("#.00");
         String mensaje = "Enviando Indicadores...\n"
-                        + "Frecuencia Cardiaca: " + df.format(objNewCliente.getFrecuenciaCardiaca())
-                        + "\nPresion Arterial: " + df.format(objNewCliente.getSistolica()) + "/" + df.format(objNewCliente.getDiastolica())
-                        + "\nFrecuencia Respiratoria: " + df.format(objNewCliente.getFrecuenciaRespiratoria())
-                        + "\nTemperatura: " + df.format(objNewCliente.getTemperatura())
-                        + "\nSaturacion de Oxigento: " + df.format(objNewCliente.getSaturacionOxigeno()) + "\n"
-                        + "************\n";
+                + "Frecuencia Cardiaca: " + df.format(objNewCliente.getFrecuenciaCardiaca())
+                + "\nPresión Arterial: " + df.format(objNewCliente.getSistolica()) + "/" + df.format(objNewCliente.getDiastolica())
+                + "\nFrecuencia Respiratoria: " + df.format(objNewCliente.getFrecuenciaRespiratoria())
+                + "\nTemperatura: " + df.format(objNewCliente.getTemperatura())
+                + "\nSaturación de Oxígento: " + df.format(objNewCliente.getSaturacionOxigeno()) + "\n"
+                + "************\n";
         return mensaje;
     }
-    
-    public void fijarRespuestaCallBack(String mensaje){
+
+    public void fijarRespuestaCallBack(String mensaje) {
         this.txtarea_notificaciones.setText(mensaje);
     }
+
     public void mostrarIndicadoresEnPantalla() {
         String mensajeFinal = "";
         for (String string : mensajesTextArea) {
-
             mensajeFinal += string;
-
         }
-
         this.txtarea_indicadores.setText(mensajeFinal);
     }
-    
+
     private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEdadActionPerformed
@@ -311,9 +311,6 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -390,5 +387,12 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         this.comboTipoEdad.setEnabled(false);
         this.txtEdad.setEnabled(false);
         this.btnGuardar.setEnabled(false);
+    }
+
+    private void fijarImagenesEnElFormulario() {
+        Image img = new ImageIcon(this.getClass().getResource("img/logo.png")).getImage();
+        this.imagenEPS.setIcon(new ImageIcon(img));
+        Image img2 = new ImageIcon(this.getClass().getResource("img/corazon.png")).getImage();
+        this.logocorazon.setIcon(new ImageIcon(img2));
     }
 }

@@ -21,12 +21,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ServidorNotificacionImpl extends UnicastRemoteObject implements ServidorNotificacionInt {
 
-    ClsNotificacionDTO objNotificacion;
+    //ClsNotificacionDTO objNotificacion;
     JLabel numHabitacion, nombre, apellidos, edad, horaAlerta, fechaAlerta, mensajeDoctorEnfermera;
     JTable tablaIndicadores, tablaRegistros;
     DefaultTableModel objModeloTablaIndicadores = new DefaultTableModel();
     DefaultTableModel objModeloTablaRegistros = new DefaultTableModel();
 
+    /*En el constructor deben ir referenciados todos los elementos que se van a utilizar en la GUI, con el fin de efectuar
+    los cambios en ésta clase y que se vean reflejados en el formulario*/
     public ServidorNotificacionImpl(JLabel numHabitacion, JLabel nombre, JLabel apellidos, JLabel edad, JLabel horaAlerta, JLabel fechaAlerta, JLabel mensajeDoctorEnfermera, JTable tablaIndicadores, JTable tablaRegistros) throws RemoteException {
         super();
         this.numHabitacion = numHabitacion;
@@ -41,7 +43,7 @@ public class ServidorNotificacionImpl extends UnicastRemoteObject implements Ser
         setModelos();
 
     }
-
+    //Este método tiene como finalidad, dar el formato adecuado para cada tabla utilizada en la GUI
     private void setModelos() {
         String[] cabecera = {"Nombre Indicador", "Valor"};
         objModeloTablaIndicadores.setColumnIdentifiers(cabecera);
@@ -56,12 +58,14 @@ public class ServidorNotificacionImpl extends UnicastRemoteObject implements Ser
     public void notificarAlMedico(ClsNotificacionDTO objNotificacion) throws RemoteException {
         System.out.println("***Datos Servidor Notificaiones***\nNombre: " + objNotificacion.getNombres());
         System.out.println("Cantidad de alertas: " + objNotificacion.getListaIndicadoresAlerta().size());
-        this.objNotificacion = objNotificacion;
-
+        //this.objNotificacion = objNotificacion;
+        
         imprimirInformacion(objNotificacion);
 
     }
-
+    
+    /*Este método es con el cual se mantiene relación con la interfaz gráfica, por ello recibo el objeto Notificacion
+    y manejo todas las referencias de la GUI*/
     private void imprimirInformacion(ClsNotificacionDTO objNotificacion) {
         //El comando setRowCount lo utilizamos para Limpiar las tablas
         this.objModeloTablaIndicadores.setRowCount(0);

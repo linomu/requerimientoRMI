@@ -12,13 +12,15 @@ import java.io.Serializable;
  * @author Lino Alejandro Munoz
  */
 public class ClsIndicadoresRegistros implements Serializable{
-    private String numHabitacion, fecha, hora, puntuacion;
+    private String numHabitacion, nombre, apellidos,  fecha, hora, puntuacion;
 
     public ClsIndicadoresRegistros(){
     }
 
-    public ClsIndicadoresRegistros(String numHabitacion, String fecha, String hora, String puntuacion) {
+    public ClsIndicadoresRegistros(String numHabitacion, String nombre, String apellidos, String fecha, String hora, String puntuacion) {
         this.numHabitacion = numHabitacion;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.fecha = fecha;
         this.hora = hora;
         this.puntuacion = puntuacion;
@@ -31,7 +33,22 @@ public class ClsIndicadoresRegistros implements Serializable{
     public void setNumHabitacion(String numHabitacion) {
         this.numHabitacion = numHabitacion;
     }
-    
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
     public String getFecha() {
         return fecha;
@@ -56,5 +73,7 @@ public class ClsIndicadoresRegistros implements Serializable{
     public void setPuntuacion(String puntuacion) {
         this.puntuacion = puntuacion;
     }
+    
+    
     
 }
