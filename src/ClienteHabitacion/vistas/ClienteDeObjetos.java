@@ -5,6 +5,7 @@ import ClienteHabitacion.sop_rmi.ClienteCallBackImpl;
 import ClienteHabitacion.sop_rmi.ClienteCallBackInt;
 import ServidorAlertas.sop_rmi.ServidorAlertasInt;
 import ClienteHabitacion.utilidades.*;
+import ServidorAlertas.dao.ClsPersistencia;
 import ServidorAlertas.dto.ClsClienteDTO;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
     private static ClienteCallBackInt ORClienteCallBack;
     private static ServidorAlertasInt ORServidorAlertas;
     private ArrayList<String> mensajesTextArea = new ArrayList<>();
+    private ArrayList<Integer> numeroHabitaciones = new ArrayList<>();
 
     public ClienteDeObjetos() {
         initComponents();
@@ -226,54 +228,66 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //Capturar Informacion
-        JOptionPane.showMessageDialog(this, "Iniciando la lectura de sensores...");
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String tipoMensaje = comboTipoEdad.getSelectedItem().toString();
-        float edad = Float.parseFloat(txtEdad.getText());
-        int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
-        if (tipoMensaje.equals("Semanas")) {
-            //Esta conversion nos permite pasar el numero de semanas a años
-            edad = (float) (edad * (7.0 / 365.0));
-            System.out.println("Entre a semanas: " + edad);
-                
-        }
-        //Creamos un objeto paciente
-        ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
-        //Deshabilitamos los demás componentes de la GUI para envitar el ingreso de datos
-        inhabilitarComponentes();
-        //Objeto de la clase Timer, el cual me permite realizar una actividad cada N Milisegundos
-        Timer objTimer = new Timer(8000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
 
-                //Generar los indicadores aleatoriamente
-                GestionIndicadores objGestion = new GestionIndicadores();
-                ClsClienteDTO objNewCliente;
-                //El objNewCliente es el resultado de la informacion personas + los indicadores
-                objNewCliente = objGestion.GenerarIndicadores(objPaciente);
-                // Obtener indicadores en un String para luego imprimirlos
-                String mensajeTextArea = mensajeIndicadores(objNewCliente);
-                //Agrego los indicadores a una lista, para tener un historial de indicadores emitidos
-                mensajesTextArea.add(mensajeTextArea);
-                //Fijar los mensajes en el area de Indicadores
-                mostrarIndicadoresEnPantalla();
-                //Ejecucion de los Objetos Remotos
-                try {
-                    ORClienteCallBack = new ClienteCallBackImpl();
-                    //Registramos la referencia del ClienteCallBack junto con el cliente->getEdad()
-                    ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
-                    /*Enviar el objeto al servidor de alertas*/
-                    String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
-                    fijarRespuestaCallBack(respuestaCallBack);
+        //Validar que todos los campos tengan información
+        if (validarFormulario()) {
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String tipoMensaje = comboTipoEdad.getSelectedItem().toString();
+            float edad = Float.parseFloat(txtEdad.getText());
+            int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
+            if (tipoMensaje.equals("Semanas")) {
+                //Esta conversion nos permite pasar el numero de semanas a años
+                edad = (float) (edad * (7.0 / 365.0));
+                System.out.println("Entre a semanas: " + edad);
 
-                } catch (RemoteException ex) {
-                    Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
             }
-        });
-        objTimer.start();
+            ClsPersistencia objPersistencia = new ClsPersistencia();
+            this.numeroHabitaciones = objPersistencia.LeerNumerosHabitacion();
+            if (!this.numeroHabitaciones.contains(numHabitacion)) {
+                JOptionPane.showMessageDialog(this, "Iniciando la lectura de sensores...");
+                //Creamos un objeto paciente
+                ClsClienteDTO objPaciente = new ClsClienteDTO(numHabitacion, nombre, apellido, edad);
+                //Deshabilitamos los demás componentes de la GUI para envitar el ingreso de datos
+                inhabilitarComponentes();
+                //Objeto de la clase Timer, el cual me permite realizar una actividad cada N Milisegundos
+                Timer objTimer = new Timer(8000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+
+                        //Generar los indicadores aleatoriamente
+                        GestionIndicadores objGestion = new GestionIndicadores();
+                        ClsClienteDTO objNewCliente;
+                        //El objNewCliente es el resultado de la informacion personas + los indicadores
+                        objNewCliente = objGestion.GenerarIndicadores(objPaciente);
+                        // Obtener indicadores en un String para luego imprimirlos
+                        String mensajeTextArea = mensajeIndicadores(objNewCliente);
+                        //Agrego los indicadores a una lista, para tener un historial de indicadores emitidos
+                        mensajesTextArea.add(mensajeTextArea);
+                        //Fijar los mensajes en el area de Indicadores
+                        mostrarIndicadoresEnPantalla();
+                        //Ejecucion de los Objetos Remotos
+                        try {
+                            ORClienteCallBack = new ClienteCallBackImpl();
+                            //Registramos la referencia del ClienteCallBack junto con el cliente->getEdad()
+                            ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
+                            /*Enviar el objeto al servidor de alertas*/
+                            String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
+                            fijarRespuestaCallBack(respuestaCallBack);
+
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                });
+                objTimer.start();
+            } else {
+                JOptionPane.showMessageDialog(this, "El número de habitación ya se encuentra registrado...");
+            }
+        } else {
+            //JOptionPane.showMessageDialog(this, "El formulario se encuentra incompleto...");
+        }
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -394,5 +408,21 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         this.imagenEPS.setIcon(new ImageIcon(img));
         Image img2 = new ImageIcon(this.getClass().getResource("img/corazon.png")).getImage();
         this.logocorazon.setIcon(new ImageIcon(img2));
+    }
+
+    private boolean validarFormulario() {
+        boolean formularioCorrecto=true;
+        if((this.txtEdad.getText().equals("") || this.txtNombre.getText().equals("") || this.txtApellido.getText().equals("") || this.txtEdad.getText().equals(""))){
+            formularioCorrecto  = false;
+            JOptionPane.showMessageDialog(this, "El formulario se encuentra incompleto...");
+        }
+        try {
+            float edad = Float.parseFloat(txtEdad.getText());
+            int numHabitacion = Integer.parseInt(txtNumHabitacion.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La edad y/o la habitación deben ser números.");
+            formularioCorrecto = false;
+        }
+        return formularioCorrecto;
     }
 }

@@ -84,5 +84,39 @@ public class ClsPersistencia {
 
         return listaRegistros;
     }
+    
+    public ArrayList<Integer> LeerNumerosHabitacion() {
+        ArrayList<Integer> listaNumerosHabitacion = new ArrayList<>();
+
+        try {
+            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
+
+            if (f.exists()) {
+                FileReader fr = new FileReader(f);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    //Continue mientras tenga algo en la linea
+                    String[] registro = linea.split("%");
+
+                    String numHabitacion = registro[0];
+                    int numeroHabitacion = Integer.parseInt(numHabitacion);
+                   
+                    //Recupero solo las alertas del paciente en cuestion
+                    if (!(listaNumerosHabitacion.contains(numHabitacion))) {
+                         listaNumerosHabitacion.add(numeroHabitacion);
+                    }
+
+                }
+            } else {
+                System.out.println("No hay carros gurdados");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listaNumerosHabitacion;
+    }
 
 }
