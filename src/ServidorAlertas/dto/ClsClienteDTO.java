@@ -20,7 +20,8 @@ public class ClsClienteDTO implements Serializable {
     private String nombres;
     private String apellidos;
     private float edad;
-    private float frecuenciaCardiaca, presionArterial, frecuenciaRespiratoria, temperatura, saturacionOxigeno, sistolica, diastolica;
+    private int frecuenciaCardiaca, presionArterial, frecuenciaRespiratoria, saturacionOxigeno, sistolica, diastolica;
+    private float temperatura;
     
 
     public ClsClienteDTO(int numHabitacion, String nombres, String apellidos, float edad) {
@@ -28,22 +29,6 @@ public class ClsClienteDTO implements Serializable {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.edad = edad;
-    }
-
-    public float getSistolica() {
-        return sistolica;
-    }
-
-    public void setSistolica(float sistolica) {
-        this.sistolica = sistolica;
-    }
-
-    public float getDiastolica() {
-        return diastolica;
-    }
-
-    public void setDiastolica(float diastolica) {
-        this.diastolica = diastolica;
     }
 
     public int getNumHabitacion() {
@@ -78,28 +63,52 @@ public class ClsClienteDTO implements Serializable {
         this.edad = edad;
     }
 
-    public float getFrecuenciaCardiaca() {
+    public int getFrecuenciaCardiaca() {
         return frecuenciaCardiaca;
     }
 
-    public void setFrecuenciaCardiaca(float frecuenciaCardiaca) {
+    public void setFrecuenciaCardiaca(int frecuenciaCardiaca) {
         this.frecuenciaCardiaca = frecuenciaCardiaca;
     }
 
-    public float getPresionArterial() {
+    public int getPresionArterial() {
         return presionArterial;
     }
 
-    public void setPresionArterial(float presionArterial) {
+    public void setPresionArterial(int presionArterial) {
         this.presionArterial = presionArterial;
     }
 
-    public float getFrecuenciaRespiratoria() {
+    public int getFrecuenciaRespiratoria() {
         return frecuenciaRespiratoria;
     }
 
-    public void setFrecuenciaRespiratoria(float frecuenciaRespiratoria) {
+    public void setFrecuenciaRespiratoria(int frecuenciaRespiratoria) {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
+    }
+
+    public int getSaturacionOxigeno() {
+        return saturacionOxigeno;
+    }
+
+    public void setSaturacionOxigeno(int saturacionOxigeno) {
+        this.saturacionOxigeno = saturacionOxigeno;
+    }
+
+    public int getSistolica() {
+        return sistolica;
+    }
+
+    public void setSistolica(int sistolica) {
+        this.sistolica = sistolica;
+    }
+
+    public int getDiastolica() {
+        return diastolica;
+    }
+
+    public void setDiastolica(int diastolica) {
+        this.diastolica = diastolica;
     }
 
     public float getTemperatura() {
@@ -110,12 +119,6 @@ public class ClsClienteDTO implements Serializable {
         this.temperatura = temperatura;
     }
 
-    public float getSaturacionOxigeno() {
-        return saturacionOxigeno;
-    }
-
-    public void setSaturacionOxigeno(float saturacionOxigeno) {
-        this.saturacionOxigeno = saturacionOxigeno;
-    }
+    
 
 }
