@@ -21,7 +21,7 @@ public class ClsPersistencia {
 
     public void GuardarRegistro(ClsIndicadoresRegistros registro) {
         try {
-            File f = new File("historialDeAlertas.txt");
+            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
             FileWriter fw;
             BufferedWriter bw;
             if (f.exists() && f.length() != 0) {
@@ -50,7 +50,7 @@ public class ClsPersistencia {
         ArrayList<ClsIndicadoresRegistros> listaRegistros = new ArrayList<>();
 
         try {
-            File f = new File("historialDeAlertas.txt");
+            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
 
             if (f.exists()) {
                 FileReader fr = new FileReader(f);
