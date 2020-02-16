@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -270,8 +272,9 @@ public class ServidorDeObjetos extends javax.swing.JFrame {
     }
 
     private void registrarseComoObjetoRemoto() {
-         int numPuertoRMIRegistry = 1515;
-        String dirIpRMIRegistry = "localhost";
+        
+        int numPuertoRMIRegistry = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de puerto"));
+        String dirIpRMIRegistry = JOptionPane.showInputDialog("Ingrese el número de puerto o el nombre de servidor");
         /*System.out.println("Cual es la direccion Ip donde se encuentra el rmiregistry: ");
         dirIpRMIRegistry = UtilidadesConsola.leerCadena();
         System.out.println("Cual es el puerto donde escucha el rmiregistry: ");

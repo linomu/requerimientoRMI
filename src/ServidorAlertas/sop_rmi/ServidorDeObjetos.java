@@ -8,6 +8,7 @@ package ServidorAlertas.sop_rmi;
 import ServidorAlertas.utilidades.*;
 import ServidorNotificaciones.sop_rmi.ServidorNotificacionInt;
 import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,8 +19,8 @@ public class ServidorDeObjetos {
     
     
     public static void main(String args[]) throws RemoteException{
-        int numPuertoRMIRegistry = 1515;
-        String dirIpRMIRegistry = "localhost";
+        int numPuertoRMIRegistry = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de puerto"));
+        String dirIpRMIRegistry = JOptionPane.showInputDialog("Ingrese el número de puerto o el nombre de servidor");
         /*System.out.println("Cual es la direccion Ip donde se encuentra el rmiregistry: ");
         dirIpRMIRegistry = UtilidadesConsola.leerCadena();
         System.out.println("Cual es el puerto donde escucha el rmiregistry: ");
