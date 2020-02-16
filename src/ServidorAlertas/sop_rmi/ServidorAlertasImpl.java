@@ -46,7 +46,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
     }
 
     @Override
-    public String enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException {
+    public void enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException {
         System.out.println("Invocando al método enviarIndicadores desde el servidor...");
         ClsNotificacionDTO objMensajeNotificacion;
         String respuestaCallback = "El paciente se encuentra bien";
@@ -66,7 +66,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
                 nombreAlertasGeneradas += listaConIndicadore.getNombreIndicador() + "\n";
             }
             //Esta es la respuesta que se enviará al Paciente, mediate el retorno del método.
-            respuestaCallback = objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal.\n" + nombreAlertasGeneradas);
+            objPacienteCallBack.notificar("El paciente que se encuntra en la habitacion " + objPaciente.getNumHabitacion() + " tiene  " + listaConIndicadores.size() + " indicadores que se encuentran fuera del rango normal.\n" + nombreAlertasGeneradas);
 
             String mensaje = "La enfermera debe revisar al paciente";
             if (listaConIndicadores.size() >= 3) {
@@ -92,7 +92,7 @@ public class ServidorAlertasImpl extends UnicastRemoteObject implements Servidor
 
         }
 
-        return respuestaCallback;
+        
     }
 
     public void consultarReferenciaRemotaDeNotificacion(String direccionIpRmiRegistry, int numPuertoRmiRegistry) {

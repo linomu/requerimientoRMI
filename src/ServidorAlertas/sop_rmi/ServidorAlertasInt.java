@@ -21,5 +21,5 @@ public interface ServidorAlertasInt extends Remote{
     /*El método enviarIndicadores tiene como finalidad recibir el paciente y verificar como se encuentran sus indicadores,
     si la cantidad de indicadores fuera de rango son 2 o más, entonces debe retornarse un mensaje al cliente y enviar el
     objeto junto con mas información al Servidor de Notificaciones*/
-    public String enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException;
+    public void enviarIndicadores(ClsClienteDTO objPaciente) throws RemoteException;
 }

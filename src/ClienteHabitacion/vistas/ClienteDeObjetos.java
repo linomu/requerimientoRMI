@@ -57,14 +57,14 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtarea_indicadores = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtarea_notificaciones = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         comboTipoEdad = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         imagenEPS = new javax.swing.JLabel();
         logocorazon = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtAreaCallback = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,10 +111,6 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         txtarea_indicadores.setName("txtIndicadores"); // NOI18N
         jScrollPane1.setViewportView(txtarea_indicadores);
 
-        txtarea_notificaciones.setColumns(20);
-        txtarea_notificaciones.setRows(5);
-        jScrollPane2.setViewportView(txtarea_notificaciones);
-
         jLabel6.setFont(new java.awt.Font("Matura MT Script Capitals", 1, 24)); // NOI18N
         jLabel6.setText("Notificaciones");
 
@@ -129,6 +125,10 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+
+        txtAreaCallback.setColumns(20);
+        txtAreaCallback.setRows(5);
+        jScrollPane3.setViewportView(txtAreaCallback);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,10 +168,13 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 13, Short.MAX_VALUE))))
+                                .addGap(578, 578, 578)))
+                        .addGap(0, 13, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3)
+                        .addGap(13, 13, 13))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +192,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                             .addComponent(logocorazon, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imagenEPS, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,11 +215,10 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -268,12 +270,12 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
                         mostrarIndicadoresEnPantalla();
                         //Ejecucion de los Objetos Remotos
                         try {
-                            ORClienteCallBack = new ClienteCallBackImpl();
+                            ORClienteCallBack = new ClienteCallBackImpl(txtAreaCallback);
                             //Registramos la referencia del ClienteCallBack junto con el cliente->getEdad()
                             ORServidorAlertas.registrarPaciente(ORClienteCallBack, objNewCliente);
                             /*Enviar el objeto al servidor de alertas*/
-                            String respuestaCallBack = ORServidorAlertas.enviarIndicadores(objNewCliente);
-                            fijarRespuestaCallBack(respuestaCallBack);
+                            ORServidorAlertas.enviarIndicadores(objNewCliente);
+                            
 
                         } catch (RemoteException ex) {
                             Logger.getLogger(ClienteDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
@@ -304,9 +306,7 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
         return mensaje;
     }
 
-    public void fijarRespuestaCallBack(String mensaje) {
-        this.txtarea_notificaciones.setText(mensaje);
-    }
+    
 
     public void mostrarIndicadoresEnPantalla() {
         String mensajeFinal = "";
@@ -384,14 +384,14 @@ public class ClienteDeObjetos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel logocorazon;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextArea txtAreaCallback;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumHabitacion;
     private javax.swing.JTextArea txtarea_indicadores;
-    private javax.swing.JTextArea txtarea_notificaciones;
     // End of variables declaration//GEN-END:variables
 
     private void inhabilitarComponentes() {

@@ -21,7 +21,9 @@ public class ClsPersistencia {
 
     public void GuardarRegistro(ClsIndicadoresRegistros registro) {
         try {
-            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
+            String cwd = new File("").getAbsolutePath();
+            System.err.println("Guardando en :"+cwd);
+            File f = new File(cwd+"/historialDeAlertas.txt");
             FileWriter fw;
             BufferedWriter bw;
             if (f.exists() && f.length() != 0) {
@@ -50,7 +52,9 @@ public class ClsPersistencia {
         ArrayList<ClsIndicadoresRegistros> listaRegistros = new ArrayList<>();
 
         try {
-            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
+            String cwd = new File("").getAbsolutePath();
+            System.err.println("Guardando en :"+cwd);
+            File f = new File(cwd+"/historialDeAlertas.txt");
 
             if (f.exists()) {
                 FileReader fr = new FileReader(f);
@@ -89,7 +93,9 @@ public class ClsPersistencia {
         ArrayList<Integer> listaNumerosHabitacion = new ArrayList<>();
 
         try {
-            File f = new File("src/ServidorAlertas/historialDeAlertas.txt");
+            String cwd = new File("").getAbsolutePath();
+            System.err.println("Guardando en :"+cwd);
+            File f = new File(cwd+"/historialDeAlertas.txt");
 
             if (f.exists()) {
                 FileReader fr = new FileReader(f);
