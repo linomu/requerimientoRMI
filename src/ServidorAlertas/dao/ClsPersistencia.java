@@ -18,12 +18,22 @@ import java.util.ArrayList;
  * @author Lino Alejandro Munoz
  */
 public class ClsPersistencia {
+    
+    private String cwd;
+    private String nombreArchivo;
+    private File f;
+
+    public ClsPersistencia() {
+        this.cwd = new File("").getAbsolutePath();
+        this.nombreArchivo="historialDeAlertas.txt";
+        this.f = new File(this.cwd+"/"+this.nombreArchivo);
+    }
+    
 
     public void GuardarRegistro(ClsIndicadoresRegistros registro) {
         try {
-            String cwd = new File("").getAbsolutePath();
-            System.err.println("Guardando en :"+cwd);
-            File f = new File(cwd+"/historialDeAlertas.txt");
+            
+            
             FileWriter fw;
             BufferedWriter bw;
             if (f.exists() && f.length() != 0) {
@@ -52,11 +62,7 @@ public class ClsPersistencia {
         ArrayList<ClsIndicadoresRegistros> listaRegistros = new ArrayList<>();
 
         try {
-            String cwd = new File("").getAbsolutePath();
-            System.err.println("Guardando en :"+cwd);
-            File f = new File(cwd+"/historialDeAlertas.txt");
-
-            if (f.exists()) {
+             if (f.exists()) {
                 FileReader fr = new FileReader(f);
                 BufferedReader br = new BufferedReader(fr);
                 String linea;
@@ -93,9 +99,7 @@ public class ClsPersistencia {
         ArrayList<Integer> listaNumerosHabitacion = new ArrayList<>();
 
         try {
-            String cwd = new File("").getAbsolutePath();
-            System.err.println("Guardando en :"+cwd);
-            File f = new File(cwd+"/historialDeAlertas.txt");
+           
 
             if (f.exists()) {
                 FileReader fr = new FileReader(f);

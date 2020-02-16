@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ServidorAlertas.sop_rmi;
+package ServidorAlertas;
 
 import ServidorAlertas.utilidades.*;
 import ServidorNotificaciones.sop_rmi.ServidorNotificacionInt;
 import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
+import ServidorAlertas.sop_rmi.*;
 
 /**
  *

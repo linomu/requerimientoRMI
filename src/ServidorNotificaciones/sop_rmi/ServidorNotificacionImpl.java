@@ -99,7 +99,7 @@ public class ServidorNotificacionImpl extends UnicastRemoteObject implements Ser
         /*Imprimir en la tabla las ultimos 5 registros de las alertas*/
 
         int tamanioLista = objNotificacion.getListaIndicadoresRegistros().size();
-        System.err.println("Tamano de la de lista: "+tamanioLista);
+        //System.err.println("Tamano de la de lista: "+tamanioLista);
         Object[] datosRegistros = new Object[this.objModeloTablaRegistros.getColumnCount()];
 
         if (tamanioLista >= 5) {
